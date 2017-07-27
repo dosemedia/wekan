@@ -1,9 +1,9 @@
 @import 'nib'
 
 #header
-  color: white
+  color: black
   transition: background-color 0.4s
-  background: #2980B9
+  background: #dddcd7
 
   #header-main-bar
     height: 40px
@@ -82,9 +82,12 @@
 
     .board-header-btn,
     h1.is-clickable
+    
+      background-color: #555;
+    
       &.is-active,
       &:hover:not(.is-disabled)
-        background: rgba(0, 0, 0, .15)
+        background: rgba(85, 85, 85, .15)
 
     .separator
       margin: 2px 4px
@@ -95,7 +98,7 @@
 #header-quick-access
   color: white
   transition: background-color 0.4s
-  background: #2573a7
+  background: #929291
   height: 28px
   font-size: 12px
   display: flex
