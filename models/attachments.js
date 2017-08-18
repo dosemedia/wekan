@@ -77,3 +77,73 @@ if (Meteor.isServer) {
     });
   });
 }
+
+
+//ATTACHMENTS REST API
+if (Meteor.isServer) {
+  JsonRoutes.add('POST', '/api/boards/:boardId/lists/:listId/cards/:cardId/cover', function (req, res, next) {
+    
+    Authentication.checkUserId(req.userId);
+    
+    const paramBoardId = req.params.boardId;
+    const paramListId = req.params.listId;
+    const paramCardId = req.params.cardId;
+    
+    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    
+    // Make sure card is found
+    var card = Cards.findOne({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false});
+    if(!card) {
+      return JsonRoutes.sendResult(res, {
+        code: 404,
+        data: {},
+      });
+    }
+    
+    var filedata = req.body;
+    
+    // Make sure file is an image
+    if((filedata.type != "image/jpeg") && (filedata.type != "image/png")) {
+      return JsonRoutes.sendResult(res, {
+        code: 500,
+        data: {error: "File must be an image"},
+      });
+    }
+    
+    // https://github.com/CollectionFS/Meteor-CollectionFS/blob/devel/packages/file/api.md
+    const file = new FS.File();
+    file.type(filedata.type);
+    file.name(filedata.name);
+    file.attachData(Buffer.from(filedata.base64, 'base64'), {type: filedata.type});
+    file.boardId = paramBoardId;
+    file.cardId = paramCardId;
+
+    Attachments.insert(file, function (err, fileObj) {
+      
+      if(err) {
+        
+        console.error("Attachment insert error!", err)
+        return JsonRoutes.sendResult(res, {
+          code: 500,
+          data: {error: err.message},
+        });
+      }
+      
+      // Attachment file has been created
+      
+      // Update card with new cover
+      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
+                {$set: {coverId: fileObj._id}});
+                
+      // Fetch new copy of card
+      card = Cards.findOne({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false});
+      
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: card,
+      });
+      
+    });
+    
+  });
+}
