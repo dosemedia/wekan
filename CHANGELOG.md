@@ -2,15 +2,53 @@
 
 This release adds the following new features:
 
+* [Add Bounties and Commercial Support to wiki](https://github.com/wekan/wekan/wiki);
+* [Add display Wekan version number and runtime
+   environment to Admin Panel](https://github.com/wekan/wekan/pull/1156);
+* [Change Email address](https://github.com/wekan/wekan/pull/1161);
+* [Ubuntu snap: Use version scriptlet](https://github.com/wekan/wekan/pull/1164).
+
+and fixes the following bugs:
+
+* [Fix Squeezed tickbox in Card](https://github.com/wekan/wekan/pull/1171).
+
+Thanks to GitHub users kubiko, nztqa and xet7 for their contributions.
+
+# v0.32 2017-07-30 Wekan release
+
+This release adds the following new features:
+
+* [Add dwrensha's Sandstorm patch to Wekan so it does not need to be maintained
+   separately](https://github.com/wekan/wekan/commit/bda15daa78556223117a5846941aafd1212f14d3).
+
+and fixes the following bugs:
+
+* [FIX SECURITY ISSUE Files accessible without authentication](https://github.com/wekan/wekan/issues/1105);
+* [Fix showing card activity history in IE11](https://github.com/wekan/wekan/pull/1152).
+
+Thanks to GitHub users dwrensha, GhassenRjab and nztqa for their contributions.
+
+# v0.31 2017-07-30 Wekan release
+
+* This was broken, having lint errors.
+
+# v0.30 2017-07-27 Wekan release
+
+SECURITY ISSUE [Files accessible without authentication](https://github.com/wekan/wekan/issues/1105)
+IS NOT FIXED YET.
+
+This release adds the following new features:
+
 * [More screenshots at Features page](https://github.com/wekan/wekan/wiki/Features);
 * [Export and import boards in Sandstorm](https://github.com/wekan/wekan/pull/1144);
-* [GitHub Issue template](https://github.com/wekan/wekan/pull/1146).
+* [GitHub Issue template](https://github.com/wekan/wekan/pull/1146);
+* [Add checklist items to activity log](https://github.com/wekan/wekan/pull/1148).
 
 and fixes the following bugs:
 
 * [Double shashes on ROOT_URL](https://github.com/wekan/wekan/issues/962).
 
-Thanks to GitHub users GhassenRjab, nztqa and xet7 for contributions.
+Thanks to GitHub users GhassenRjab, nztqa and xet7 for their contributions.
 
 # v0.29 2017-07-21 Wekan release
 
