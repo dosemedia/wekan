@@ -111,6 +111,10 @@ if (Meteor.isServer) {
     file.attachData(Buffer.from(filedata.base64, 'base64'), {type: filedata.type});
     file.boardId = paramBoardId;
     file.cardId = paramCardId;
+    
+    if(filedata["authorId"]) {
+      file.userId = filedata["authorId"];
+    }
 
     Attachments.insert(file, function (err, fileObj) {
       
