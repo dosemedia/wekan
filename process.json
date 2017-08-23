@@ -1,0 +1,9 @@
+{
+    "apps" : [
+        {
+            "name"        : "dose_wekan",
+            "script"      : "/build/main.js",
+            "watch"       : false
+        }
+    ]
+}
