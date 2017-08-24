@@ -82,7 +82,7 @@ RUN \
     npm install -g npm@${NPM_VERSION} && \
     npm install -g node-gyp && \
     npm install -g fibers@${FIBERS_VERSION} && \
-    npm install -g pm2 && \
+    npm install pm2 -g && \
     \
     # Change user to wekan and install meteor
     cd /home/wekan/ && \
@@ -131,9 +131,12 @@ RUN \
     rm -R /home/wekan/.meteor && \
     rm -R /home/wekan/app && \
     rm -R /home/wekan/app_build && \
-    rm /home/wekan/install_meteor.sh
+    rm /home/wekan/install_meteor.sh && \
+    npm install pm2 -g
+
+ADD process.json /build/process.json
 
 ENV PORT=80
 EXPOSE $PORT
 
-CMD [ "pm2-docker", "/parse/process.json" ]
+CMD [ "/opt/nodejs/lib/node_modules/pm2/bin/pm2-docker", "/build/process.json" ]
