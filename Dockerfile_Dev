@@ -1,0 +1,31 @@
+# To build image:
+# docker build -f Dockerfile_Dev -t dose_wekan_dev .
+
+# To run image with bach (no pm2)
+# docker run -it dose_wekan_dev /bin/bash
+
+FROM node:4.8.4
+
+ADD . /opt/wekan
+
+EXPOSE 80
+ENV METEOR_ALLOW_SUPERUSER=true
+
+RUN npm install pm2 -g && \
+    npm install -g node-gyp && \
+    npm install -g fibers@1.0.15 && \
+    curl https://install.meteor.com | /bin/sh && \
+    cd /opt/wekan && \
+    mkdir packages && \
+    cd packages && \
+    git clone --depth 1 -b master git://github.com/wekan/flow-router.git kadira-flow-router && \
+    git clone --depth 1 -b master git://github.com/meteor-useraccounts/core.git meteor-useraccounts-core && \
+    cd /opt/wekan && \
+    meteor -- help
+
+WORKDIR /opt/wekan
+
+CMD [ "pm2-docker", "/opt/wekan/process.json" ]
+
+# Note for installing specific meteor version
+# curl "https://install.meteor.com/?release=1.4.4.1" | sh

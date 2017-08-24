@@ -2,7 +2,7 @@
     "apps" : [
         {
             "name"        : "dose_wekan",
-            "script"      : "/build/main.js",
+            "script"      : "meteor run --port 80",
             "watch"       : false
         }
     ]
